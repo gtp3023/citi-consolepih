@@ -12,7 +12,11 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 /**
  * @author jorge.ruiz citi.com.mx
  */
-@PropertySource("file:${cpih.server.path.conf}/application.properties")
+@PropertySource({
+	"file:${cpih.server.path.conf}/application.properties",
+	"file:${cpih.server.path.conf}/gwt.properties",
+	"file:${cpih.server.path.conf}/spr.properties"
+})
 @SpringBootApplication
 public class ServerApplication extends SpringBootServletInitializer {
 
