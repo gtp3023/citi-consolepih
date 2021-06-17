@@ -1,39 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<%-- <div id="content" class="active">
-
-	<h1><spring:message code="cpih.page.user.title"/></h1>
-	
-	<div class="row marginB">
-		<div class="col-xs-12 col-sm-6 col-lg-4 text-left">
-	       	<button id="btnNew" type="button" class="button btn_blue"><em class="fa fa-plus"></em> <spring:message code="cpih.page.user.button.new"/></button>
-	    </div>
-	</div>
-	
+<div class="content">
+    <div class="row align-items-center title_header">
+        <div class="col-6 col-md-8">
+            <h3 class="blue">Administración de usuarios</h3>
+        </div>
+        <div class="col-6 col-md-4 text-right">
+            <button id="btnNew" type="button" class="button btn_primary" data-toggle="modal" data-target="#user_create" data-backdrop="static" data-keyboard="false"><em class="material-icons">person_add</em> Crear usuario</button>
+        </div>
+    </div>
+		
 	<div id="gridData">
 	  	<c:import url="userList.jsp" />
 	</div>
-
-</div> --%>
-
-
-
-	<div class="content">
-        <div class="row align-items-center title_header">
-            <div class="col-6 col-md-8">
-                <h3 class="blue">Administración de usuarios</h3>
-            </div>
-            <div class="col-6 col-md-4 text-right">
-                <button id="btnNew" type="button" class="button btn_primary" data-toggle="modal" data-target="#user_create" data-backdrop="static" data-keyboard="false"><em class="material-icons">person_add</em> Crear usuario</button>
-            </div>
-        </div>
-		
-		<div id="gridData">
-		  	<c:import url="userList.jsp" />
-		</div>
-		
-    </div>
+</div>
 
 <div id="modal" class="modal fade" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">

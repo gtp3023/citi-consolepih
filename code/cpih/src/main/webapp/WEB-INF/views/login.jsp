@@ -108,7 +108,7 @@
                         <div class="form_password">
                             <input type="password" name="password" id="password" class="form_input" placeholder="<spring:message code="cpih.login.input.pass"/>" maxlength="20">
                             <em class="material-icons show">visibility</em>
-                            <h2 id="errorLogin">${error}</h2>
+                            <h2 class="msg-error" id="errorLogin">${error}</h2>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </div>
                     </div>
