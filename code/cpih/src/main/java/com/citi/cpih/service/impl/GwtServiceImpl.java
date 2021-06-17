@@ -111,5 +111,81 @@ public class GwtServiceImpl implements GwtService {
         return response;
     }
 	
+	@Override
+    public ResponseDTO getCloudInfo(UserDTO userDTO) {
+		ResponseDTO response = new ResponseDTO();
+        Date creationDate = new Date();
+
+        String serviceName = "getInternetBalanceV4";
+        String serviceVersion = "1.0";
+        String channel = "1";
+        
+        try {
+            ValuesType valuesType = new ValuesType();
+            valuesType.setName("platform");
+            valuesType.setValue("Android");
+
+            ValuesType valuesType1 = new ValuesType();
+            valuesType1.setName("appVersion");
+            valuesType1.setValue("3.2");
+
+            OperationRequestType request = new OperationRequestType();
+            request.getValues().add(valuesType);
+            request.getValues().add(valuesType1);
+            request.setMsisdn(userDTO.getMsisdn());
+            request.setChannel(channel);
+            request.setServiceName(serviceName);
+            request.setServiceVersion(serviceVersion);
+            
+            this.logger.info("{} - Invoking GWT executeOperation serviceName {}", userDTO.getMsisdn(), serviceName);
+            CaptiveCore port = this.captiveCore;
+            OperationResponseType operationResponseType = port.executeOperation(request);
+
+            if (operationResponseType != null) {
+                response.setCode(operationResponseType.getResponseCode());
+                response.setDescription(operationResponseType.getResponseMessage());
+            	
+                if (operationResponseType.getResponseCode() == 0) {
+                    Iterator<ValuesType> i = operationResponseType.getValues().iterator();
+
+                    while(i.hasNext()) {
+                        ValuesType v = i.next();
+                        
+                        if (null != v && null != v.getName()) {
+                        	
+	                        if (v.getName().contains("Natural")) {
+	                        	if( null != v.getMapValues() ) {
+									List<MapValueType> map = v.getMapValues();
+									
+									for (MapValueType mapValueType : map) {
+										if(mapValueType.getAttribute().equals("Product")) {
+											//userDTO.setPlan(mapValueType.getValue());
+											break;
+										}
+									}
+	                        	}
+							}
+	                        
+                        }
+                    }
+                    
+                }
+            } else {
+            	response.setCode(Constants.CODE_WS_EXCEPTION);
+            	response.setDescription("Error GWTSVA executeOperation " + serviceName);
+            }
+            
+        } catch(Exception e) {
+        	this.logger.error("{} - An error occurred when consulting {} GWTSVA - {}", userDTO.getMsisdn(), serviceName, e.getMessage());
+			
+			response = new ResponseDTO();
+			response.setCode(Constants.CODE_WS_EXCEPTION);
+			response.setDescription("Error GWTSVA executeOperation " + serviceName);
+        }
+        
+        this.legacyTransLog.logGetInternetBalanceV4(userDTO, creationDate, response);
+        return response;
+    }
+	
 	
 }

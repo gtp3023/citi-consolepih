@@ -58,6 +58,12 @@
         </dependency>
         
         <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <scope>test</scope>
+		</dependency>
+        
+        <dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-taglibs</artifactId>
 		</dependency>
@@ -91,11 +97,16 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+            <groupId>mx.com.citi.captivecore</groupId>
+            <artifactId>gwtsva-client</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-ldap</artifactId>
 		</dependency>
-		
+        
 	</dependencies>
 	
 	<build>
@@ -117,7 +128,9 @@
 					</archive>
 					<packagingExcludes>
 						WEB-INF/classes/application.properties,
-						WEB-INF/classes/messages.properties
+						WEB-INF/classes/messages.properties,
+						WEB-INF/classes/gwt.properties,
+						WEB-INF/classes/spr.properties
 					</packagingExcludes>
 				</configuration>
 			</plugin>

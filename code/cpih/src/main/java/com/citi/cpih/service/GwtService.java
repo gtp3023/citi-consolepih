@@ -9,5 +9,7 @@ import com.citi.cpih.dto.UserDTO;
 public interface GwtService {
 	
 	ResponseDTO getInternetBalanceV4(UserDTO userDTO);
+	
+	ResponseDTO getCloudInfo(UserDTO userDTO);
     
 }
