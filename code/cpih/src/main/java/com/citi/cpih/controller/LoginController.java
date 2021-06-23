@@ -1,13 +1,10 @@
 package com.citi.cpih.controller;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -82,8 +79,6 @@ public class LoginController {
 
 				type = service.getAccesoSeguroPACPort(new URL(this.url));
 				respuestac = type.validaToken(token, this.pacPass);
-				
-				respuestac = Constants.SUCCES_WS_PAC;
 				
 				
 				logger.info("Response WS PAC: {}", respuestac);
