@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.citi.cpih.dto.Request;
 import com.citi.cpih.model.User;
+import com.citi.cpih.model.UserPih;
+import com.citi.cpih.repository.UserPihRepository;
 import com.citi.cpih.repository.UserRepository;
 import com.citi.cpih.service.UserService;
 
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	
 	@Autowired 
     private UserRepository userRepository;
+	
+	@Autowired 
+    private UserPihRepository userPihRepository;
 	
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -70,7 +75,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		try {
 			return this.userRepository.findAll();
 		} catch (Exception e) {
-			this.logger.error("Error on load user list => Message: {}", e.getMessage().toString());
+			this.logger.error("Error on load user list => Message: {}", e.getMessage());
 			return new ArrayList<>();
 		}
 	}
@@ -87,7 +92,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 			this.userRepository.save(user);
 			return true;
 		} catch (Exception e) {
-			this.logger.error("Error on saveOrUpdate method => Message: {}", e.getMessage().toString());
+			this.logger.error("Error on saveOrUpdate method => Message: {}", e.getMessage());
 			return false;
 		}
 	}
@@ -100,7 +105,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 			this.userRepository.delete(user);
 			return true;
 		} catch (Exception e) {
-			this.logger.error("Error on delete method => Message: {}", e.getMessage().toString());
+			this.logger.error("Error on delete method => Message: {}", e.getMessage());
 			return false;
 		}
     }
@@ -114,6 +119,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         
         return false;
+    }
+	
+	@Override
+    public UserPih getUserPih(String msisdn) {
+		return this.userPihRepository.findByMsisdn(msisdn);
     }
 	
 }

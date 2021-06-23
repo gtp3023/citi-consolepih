@@ -1,9 +1,9 @@
 package com.citi.cpih.service;
 
-import com.citi.cpih.dto.UserDTO;
+import com.citi.cpih.dto.UserSprDTO;
 
 public interface SprService {
 		
-	UserDTO getProfile(String msisdn);
+	UserSprDTO getProfile(String msisdn);
 		
 }

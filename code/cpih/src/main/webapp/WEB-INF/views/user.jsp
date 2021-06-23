@@ -85,6 +85,53 @@
     </div>
 </div>
 
+<div id="modalDelete" class="modal fade" aria-labelledby="myModalDeleteLabel">
+	<div class="modal-dialog" role="document">
+	    <div class="modal-content error">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   	<span aria-hidden="true">&times;</span>
+                </button>
+                
+                <em class="material-icons">warning</em>
+                
+                <h4><span id="myModalDeleteLabel"><spring:message code="cpih.modal.delete.title"/></span></h4>
+			
+                <div class="eliminarTitle">
+                    <label><spring:message code="cpih.modal.delete.msg"/></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnDelete" type="button" class="btn btn_error"><spring:message code="cpih.general.button.accept"/></button>
+	            <button data-dismiss="modal" type="button" class="btn btn_error_line"><spring:message code="cpih.general.button.cancel"/></button>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div id="modalMsg" class="modal fade" aria-labelledby="modalMsgTitle">
+	<div class="modal-dialog" role="document">
+	    <div class="modal-content info">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   	<span aria-hidden="true">&times;</span>
+                </button>
+                
+                <div class="modal_title">
+                    <h3><span id="modalMsgTitle"></span></h3>
+                </div>
+				
+                <div class="eliminarTitle">
+                    <label id="modalMsgText"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+	            <button data-dismiss="modal" type="button" class="btn btn_primary"><spring:message code="cpih.general.button.accept"/></button>
+            </div>
+		</div>
+	</div>
+</div>
+
 <script>	
     $(document).ready(function () {
     	self.createEvents();
@@ -294,6 +341,7 @@
 
     function openModalDelete(id) {
     	self.idTemp = id;
+    	console.log('test');
     	$('#modalDelete').modal('show');
     };
 
