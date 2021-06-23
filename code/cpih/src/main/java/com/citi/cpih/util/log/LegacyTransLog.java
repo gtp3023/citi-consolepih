@@ -34,6 +34,17 @@ public class LegacyTransLog {
 				response.getDescription());
 	}
 	
+	public void logGetCloudInfo(UserDTO userDTO, Date creationDate, ResponseDTO response) {
+		String date = this.formatDateFull(creationDate);
+		this.logger.info("{} - {}|{}|{}|{}|{}",
+				Constants.GWT_METHOD_GET_CLOUD_INFO,
+				date,
+				userDTO.getMsisdn(),
+				Util.getSubscriberType(userDTO.getSubscription()),
+				response.getCode(),
+				response.getDescription());
+	}
+	
 	private String formatDateFull(Date creationDate) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.dateFormatterFull.format(creationDate)).append("|").append(this.dateFormatterFull.format(new Date()));

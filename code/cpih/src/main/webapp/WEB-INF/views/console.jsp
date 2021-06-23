@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <div id="divSearch" class="content">
     <div class="index_header text-center">
-        <h2>Hola Administrador</h2>
+        <h2>Hola <sec:authentication property="principal.fullName"/></h2>
         <form>
             <p>Para realizar una búsqueda<br /> ingresa el número de línea deseado.</p>
             <input id="msisdn" type="text" class="form_input" placeholder="Número 10 dígitos" />
