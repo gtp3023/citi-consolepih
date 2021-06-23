@@ -34,7 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(logInterceptor()).excludePathPatterns(new String[] { "/", "/s/*"}).addPathPatterns(new String[] { "/confirm", "/terms", "/buy" });
+		registry.addInterceptor(new LogInterceptor()).addPathPatterns("/**");
 	}
 		
 }

@@ -83,7 +83,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     	response.getWriter().write("ACCESO RESTRINGIDO");
     	
     	log.error("Credenciales incorrectas...");
-    	response.sendRedirect(request.getContextPath()+"/login");
+    	response.sendRedirect(request.getContextPath()+"/login?error=1");
     }
 }
 

@@ -65,27 +65,6 @@
 </head>
 
 <body>
-	<%-- <div class="background-login">
-        <div class="back-position">
-            <div class="login-holder">
-                <section>
-                    <img src="images/logo_blue.png">
-                </section>
-                <h1><spring:message code="cpih.login.welcome"/></h1>
-                <h3><spring:message code="cpih.login.name"/></h3>
-                
-                <form id="formLogin" action="login"  method="POST" class="login_form">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="<spring:message code="cpih.login.input.username"/>" maxlength="30" autofocus>
-                    <input type="password" name="password" id="password" class="form-control"  placeholder="<spring:message code="cpih.login.input.pass"/>" maxlength="20">
-                    
-                    <input id="btnLogin" type="button" class="btn login-btn" value="<spring:message code="cpih.login.button.login"/>">
-                    <br>
-                    <h2 id="errorLogin">${error}</h2>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
-            </div>
-        </div>
-    </div> --%>
     
     <div class="row login_container">
             <div class="col-12 col-md-4 login_sideBG">
@@ -97,7 +76,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-8">
-                <form id="formLogin" action="login" method="POST" class="login_form">
+                <form id="formLogin" action="getAccesoLogin" method="POST" class="login_form">
                     <h2>Iniciar sesión</h2>
                     <div class="form_content">
                         <label class="form_lbl">Usuario</label>
@@ -109,7 +88,6 @@
                             <input type="password" name="password" id="password" class="form_input" placeholder="<spring:message code="cpih.login.input.pass"/>" maxlength="20">
                             <em class="material-icons show">visibility</em>
                             <h2 class="msg-error" id="errorLogin">${error}</h2>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </div>
                     </div>
 

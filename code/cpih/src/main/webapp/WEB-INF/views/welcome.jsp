@@ -10,9 +10,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <meta name="_csrf" content="${_csrf.token}"/>
-	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <title><spring:message code="cpih.general.title"/></title>
     
@@ -36,13 +33,6 @@
     	Constants.Context.APP_PATH = '${pageContext.request.contextPath}/';
     	
     	$(document).ready(function() {
-            
-    		var token = $('meta[name="_csrf"]').attr('content');
-        	var header = $('meta[name="_csrf_header"]').attr('content');
-        	 
-        	$(document).ajaxSend(function(e, xhr, options) {
-        	    xhr.setRequestHeader(header, token);
-        	});
     	    
     	    $('#btnMenuConsole').click(function(e) {
     	        e.preventDefault();
@@ -57,6 +47,18 @@
     	    function loadPage(data) {
     	    	$('#pageData').html(data);
     	    };
+    	    
+    	    $('#btnLogout').click(function (e) {
+    			e.preventDefault();
+    			$('.overlay').show();
+       			
+       			var form = $('<form></form>')
+                   .attr('action', '${pageContext.request.contextPath}/logout')
+                   .attr('method', 'post');
+       			$('body').append(form);
+       			
+       			form.submit();
+       		});
     	    
         });
     </script>
@@ -81,7 +83,7 @@
                             	<a id="btnMenuUser" class="btnMenu" url="user" href="javascript:void(0)">Administración de usuarios</a>
                             </sec:authorize>
                             <hr />
-                            <a onclick="document.forms['logoutForm'].submit()" href="javascript:void(0)"><spring:message code="cpih.general.logout"/></a>
+                            <a id="btnLogout" href="javascript:void(0)"><spring:message code="cpih.general.logout"/></a>
                         </div>
                     </div>
                 </div>
@@ -99,57 +101,6 @@
             <div class="double-bounce2"></div>
         </div>
     </div>
-    
-    <div id="modalDelete" class="modal fade" aria-labelledby="myModalDeleteLabel">
-		<div class="modal-dialog" role="document">
-		    <div class="modal-content error">
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                   	<span aria-hidden="true">&times;</span>
-	                </button>
-	                
-	                <em class="material-icons">warning</em>
-	                
-	                <h4><span id="myModalDeleteLabel"><spring:message code="cpih.modal.delete.title"/></span></h4>
-				
-	                <div class="eliminarTitle">
-	                    <label><spring:message code="cpih.modal.delete.msg"/></label>
-	                </div>
-	            </div>
-	            <div class="modal-footer">
-	                <button id="btnDelete" type="button" class="btn btn_error"><spring:message code="cpih.general.button.accept"/></button>
-		            <button data-dismiss="modal" type="button" class="btn btn_error_line"><spring:message code="cpih.general.button.cancel"/></button>
-	            </div>
-			</div>
-		</div>
-	</div>
-	
-	<div id="modalMsg" class="modal fade" aria-labelledby="modalMsgTitle">
-		<div class="modal-dialog" role="document">
-		    <div class="modal-content info">
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                   	<span aria-hidden="true">&times;</span>
-	                </button>
-	                
-	                <div class="modal_title">
-	                    <h3><span id="modalMsgTitle"></span></h3>
-	                </div>
-					
-	                <div class="eliminarTitle">
-	                    <label id="modalMsgText"></label>
-	                </div>
-	            </div>
-	            <div class="modal-footer">
-		            <button data-dismiss="modal" type="button" class="btn btn_primary"><spring:message code="cpih.general.button.accept"/></button>
-	            </div>
-			</div>
-		</div>
-	</div>
-    
-    <form id="logoutForm" method="POST" action="logout">
-    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	</form>
     
 </body>
 </html>

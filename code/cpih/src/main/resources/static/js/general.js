@@ -10,13 +10,6 @@ function genericAjax(e, url, params, execute, type) {
 	}
 	
 	url = Constants.Context.APP_PATH + url;
-	var token = $("meta[name='_csrf']").attr("content");
-	
-	$.ajaxSetup({
-	   headers:{
-		   "X-CSRF-TOKEN": token
-	   }
-	});
 	
     $.post(url, params, execute, type);
 };
@@ -33,13 +26,6 @@ function genericAjaxJson(e, url, params, execute) {
 	}
 	
 	url = Constants.Context.APP_PATH + url;
-	var token = $("meta[name='_csrf']").attr("content");
-	
-	$.ajaxSetup({
-	   headers:{
-		   "X-CSRF-TOKEN": token
-	   }
-	});
     
     $.ajax({
         url: url,
