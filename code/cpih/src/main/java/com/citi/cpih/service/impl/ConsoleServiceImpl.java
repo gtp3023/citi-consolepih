@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.citi.cpih.dto.ResponseDTO;
 import com.citi.cpih.dto.UserDTO;
 import com.citi.cpih.dto.UserSprDTO;
 import com.citi.cpih.model.UserPih;
@@ -13,6 +14,7 @@ import com.citi.cpih.service.GwtService;
 import com.citi.cpih.service.SprService;
 import com.citi.cpih.service.UserService;
 import com.citi.cpih.util.Constants;
+import com.citi.cpih.util.DateUtil;
 
 /**
  * @author jruizg citi.com.mx
@@ -33,35 +35,41 @@ public class ConsoleServiceImpl implements ConsoleService {
 	
 	@Override
     public UserDTO search(String msisdn) {
+		logger.info("{} Search information", msisdn);
 		UserDTO userDTO = this.getUser(msisdn);
 		
-		this.gwtService.getInternetBalanceV4(userDTO);
-		this.gwtService.getCloudInfo(userDTO);
+		logger.info("{} Validate getInternetBalance", msisdn);
+		ResponseDTO responseV4 = this.gwtService.getInternetBalanceV4(userDTO);
 		
-		userDTO.setHasMh3(Constants.SI);
-		userDTO.setHasGeolk(Constants.SI);
-		userDTO.setHasOfferId(Constants.SI);
+		logger.info("{} Validate getCloudInfo", msisdn);
+		ResponseDTO responseCloud = this.gwtService.getCloudInfo(userDTO);
 		
-		userDTO.setLastChangeDate("12/20/2021");
+		userDTO.setHasMh3(responseV4.getHasMh3());
+		userDTO.setHasGeolk(responseCloud.getHasGeolk());
+		userDTO.setHasOfferId(responseV4.getHasOfferId());
+		userDTO.setLastChangeDate(responseV4.getLastChangeGeolk());
 		
         return userDTO;
     }
 	
 	private UserDTO getUser(String msisdn) {
 		msisdn = Constants.LADA + msisdn;
+		
+		logger.info("{} Load user from SPR", msisdn);
+		UserSprDTO userSprDTO = this.sprService.getProfile(msisdn);
+		
+		logger.info("{} Load user from database", msisdn);
 		UserPih userPih = this.userService.getUserPih(msisdn);
 		UserDTO userDTO = new UserDTO(msisdn);
-		UserSprDTO userSprDTO = null;
+		
 		
 		if(userPih != null) {
-			userSprDTO = this.sprService.getProfile(msisdn);
-			
 			userDTO.setFullName(userPih.getFullName());
 			userDTO.setEmail(userPih.getEmail());
 			userDTO.setMsisdnTwo(userPih.getMsisdnTwo());
 			
 			userDTO.setHasRegister(Constants.SI);
-			userDTO.setCreationDate("10/20/2021");
+			userDTO.setCreationDate(DateUtil.formatDate(userPih.getCreated()));
 		} else {
 			userDTO.setHasRegister(Constants.NO);
 			userDTO.setLastChangeDate(Constants.NA);
@@ -70,7 +78,7 @@ public class ConsoleServiceImpl implements ConsoleService {
 		
 		if(userSprDTO != null) {
 			userDTO.setSubscription(userSprDTO.getSubscription());
-			userDTO.setHasVpn(userSprDTO.getVpnNodeId() == 5 || userSprDTO.getVpnNodeId() == 7 ? "Correcto" : "Incorrecto");
+			userDTO.setHasVpn(userSprDTO.getVpnNodeId() == 5 ? "Correcto" : "Incorrecto");
 		}
 		
 		return userDTO;

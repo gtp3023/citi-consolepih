@@ -35,6 +35,7 @@ public class UserController {
 		
 	@PostMapping()
 	public ModelAndView loadPage(HttpServletRequest httpRequest) {
+		logger.info("Load user page");
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.addObject("listRole", ComboUtil.getListRoleCombo());
 		return modelAndView;
@@ -42,6 +43,7 @@ public class UserController {
 	
 	@PostMapping("/grid")
 	public ModelAndView grid(HttpServletRequest httpRequest) {
+		logger.info("Load users info");
 		ModelAndView modelAndView = new ModelAndView("userList");
 		List<User> users = this.userService.findAll();
 		modelAndView.addObject("users", users);
@@ -52,8 +54,9 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> validateUserName(HttpServletRequest httpRequest, 
 			@RequestParam(value = "username", required = true) String username) {
+		logger.info("Validate username {}", username);
 		
-		Map<String, Object> modelAndViewMap = new HashMap<String, Object>();
+		Map<String, Object> modelAndViewMap = new HashMap<>();
 		boolean response = this.userService.existUsername(username);
 		modelAndViewMap.put("response", response);
 		return modelAndViewMap;
@@ -63,7 +66,9 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> findById(HttpServletRequest httpRequest, 
 			@RequestParam(value = "id", required = true) Long id) {
-		Map<String, Object> modelAndViewMap = new HashMap<String, Object>();
+		logger.info("Load user by id {}", id);
+		
+		Map<String, Object> modelAndViewMap = new HashMap<>();
 			
 		User response = this.userService.findById(id);
 		modelAndViewMap.put("response", response);
@@ -74,7 +79,8 @@ public class UserController {
 	@PostMapping("/save")
 	@ResponseBody
 	public Map<String, Object> save(HttpServletRequest httpRequest, @RequestBody User user) {
-		Map<String, Object> modelAndViewMap = new HashMap<String, Object>();
+		logger.info("Save user");
+		Map<String, Object> modelAndViewMap = new HashMap<>();
 		
 		boolean response = this.userService.save(user);
 		modelAndViewMap.put("response", response);
@@ -86,11 +92,12 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> delete(HttpServletRequest httpRequest, 
 			@RequestParam(value = "id", required = true) Long id) {
-		Map<String, Object> modelAndViewMap = new HashMap<String, Object>();
-			
+		logger.info("Delete user");
+		Map<String, Object> modelAndViewMap = new HashMap<>();
+		
 		boolean response = this.userService.delete(new User(id));
 		modelAndViewMap.put("response", response);
-			
+		
 		return modelAndViewMap;
 	}
 	

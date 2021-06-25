@@ -14,6 +14,7 @@ public class ResponseDTO implements Serializable {
     private String hasMh3;
     private String hasGeolk;
     private String hasOfferId;
+    private String lastChangeGeolk;
     
     public ResponseDTO() {}
     
@@ -61,5 +62,13 @@ public class ResponseDTO implements Serializable {
 	public void setHasOfferId(String hasOfferId) {
 		this.hasOfferId = hasOfferId;
 	}
-	
+
+	public String getLastChangeGeolk() {
+		return lastChangeGeolk;
+	}
+
+	public void setLastChangeGeolk(String lastChangeGeolk) {
+		this.lastChangeGeolk = lastChangeGeolk;
+	}
+
 }
