@@ -34,6 +34,23 @@ public class ConsoleServiceImpl implements ConsoleService {
     private UserService userService;
 	
 	@Override
+    public UserDTO getUserSpr(String msisdn) {
+		msisdn = Constants.LADA + msisdn;
+		
+		logger.info("{} Load user from SPR", msisdn);
+		UserSprDTO userSprDTO = this.sprService.getProfile(msisdn);
+		UserDTO userDTO = null;
+		
+		if(userSprDTO != null) {
+			userDTO = new UserDTO(msisdn);
+			userDTO.setSubscription(userSprDTO.getSubscription());
+			userDTO.setHasVpn(userSprDTO.getVpnNodeId() == 5 ? Constants.VPN_CORRECT : Constants.VPN_INCORRECT);
+		}
+		
+		return userDTO;
+	}
+	
+	@Override
     public UserDTO search(String msisdn) {
 		logger.info("{} Search information", msisdn);
 		UserDTO userDTO = this.getUser(msisdn);
@@ -55,9 +72,6 @@ public class ConsoleServiceImpl implements ConsoleService {
 	private UserDTO getUser(String msisdn) {
 		msisdn = Constants.LADA + msisdn;
 		
-		logger.info("{} Load user from SPR", msisdn);
-		UserSprDTO userSprDTO = this.sprService.getProfile(msisdn);
-		
 		logger.info("{} Load user from database", msisdn);
 		UserPih userPih = this.userService.getUserPih(msisdn);
 		UserDTO userDTO = new UserDTO(msisdn);
@@ -74,11 +88,6 @@ public class ConsoleServiceImpl implements ConsoleService {
 			userDTO.setHasRegister(Constants.NO);
 			userDTO.setLastChangeDate(Constants.NA);
 			userDTO.setCreationDate(Constants.NA);
-		}
-		
-		if(userSprDTO != null) {
-			userDTO.setSubscription(userSprDTO.getSubscription());
-			userDTO.setHasVpn(userSprDTO.getVpnNodeId() == 5 ? "Correcto" : "Incorrecto");
 		}
 		
 		return userDTO;

@@ -7,6 +7,8 @@ import com.citi.cpih.dto.UserDTO;
  */
 public interface ConsoleService {
 	
+	UserDTO getUserSpr(String msisdn);
+	
 	UserDTO search(String msisdn);
     
 }

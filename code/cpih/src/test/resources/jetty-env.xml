@@ -6,9 +6,9 @@
 		<Arg>
 			<New class="oracle.jdbc.pool.OracleDataSource">
 				<Set name="DriverType">thin</Set>
-				<Set name="URL">jdbc:oracle:thin:@200.34.113.186:1521:DEV</Set>
-				<Set name="User">cautivo</Set>
-				<Set name="Password">cautivo</Set>
+				<Set name="URL">jdbc:oracle:thin:@localhost:1521:xe</Set>
+				<Set name="User">cpih</Set>
+				<Set name="Password">cpih</Set>
 				<Set name="connectionCachingEnabled">true</Set>
 				<Set name="connectionCacheProperties">
 					<New class="java.util.Properties">

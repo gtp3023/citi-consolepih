@@ -70,7 +70,7 @@
             <div class="row align-items-center">
                 <div class="col-12 col-sm-6 col-md-8">
                     <img class="main_logo" src="images/logo_white.png" draggable="false" alt="Logo"/>
-                    <h5>Consola de monitoreo PIH</h5>
+                    <h5>Consola de monitoreo Internet en tu casa</h5>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 text-right">
                     <div class="dropdown">
@@ -78,7 +78,7 @@
                         <c:set var="role" scope="session" value='<sec:authentication property="principal.user.role"/>'/>
                         
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu_set">
-                        	<a id="btnMenuConsole" class="btnMenu" url="console" href="javascript:void(0)">Consola de monitoreo PIH</a>
+                        	<a id="btnMenuConsole" class="btnMenu" url="console" href="javascript:void(0)">Consola de monitoreo</a>
                         	<sec:authorize access="hasRole('ROLE_ADMIN')">
                             	<a id="btnMenuUser" class="btnMenu" url="user" href="javascript:void(0)">Administración de usuarios</a>
                             </sec:authorize>
@@ -94,13 +94,6 @@
 	<div id="pageData">
       	<c:import url="console.jsp" />
   	</div>
-    
-    <div class="overlay">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
-        </div>
-    </div>
     
 </body>
 </html>

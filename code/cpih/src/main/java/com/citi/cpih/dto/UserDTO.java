@@ -29,6 +29,12 @@ public class UserDTO implements Serializable {
     public UserDTO(String msisdn) {
     	this.msisdn = msisdn;
     }
+    
+    public UserDTO(int subscriptionType, String subscription, String hasVpn) {
+    	this.subscriptionType = subscriptionType;
+    	this.subscription = subscription;
+    	this.hasVpn = hasVpn;
+    }
 
 	public String getMsisdn() {
 		return msisdn;

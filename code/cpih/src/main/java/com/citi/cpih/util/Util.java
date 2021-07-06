@@ -17,6 +17,8 @@ public class Util {
 	    		return Constants.MIXTO;
 	    	} else if(subscriberType.equalsIgnoreCase(Constants.PREPAID)) {
 	    		return Constants.PREPAGO;
+	    	} else if(subscriberType.equalsIgnoreCase(Constants.POSTPAID_BES)) {
+	    		return Constants.POSPAGO_BES;
 	    	} 
     	}
     	

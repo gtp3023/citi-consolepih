@@ -35,10 +35,12 @@ public class Constants {
 	public static final String UTF_8 = "utf-8";
 	
 	public static final String POSTPAID = "POSTPAID";
+	public static final String POSTPAID_BES = "POSTPAIDGF";
 	public static final String MIX = "MIX";
 	public static final String PREPAID = "PREPAID";
 	
-	public static final String POSPAGO = "Pospago";
+	public static final String POSPAGO = "PospagoLegacy";
+	public static final String POSPAGO_BES = "Pospago BES";
 	public static final String MIXTO = "Mixto";
 	public static final String PREPAGO = "Prepago";
 	
@@ -47,7 +49,7 @@ public class Constants {
 	public static final int CODE_PREPAID = 3;
 	
 	public static final int CODE_WS_EXCEPTION = -9;
-	public static final String DESCRIPTION_WS_EXCEPTION = "Error general en Web Service";;
+	public static final String DESCRIPTION_WS_EXCEPTION = "Error general en Web Service";
     
     public static final String LADA = "52";
 	
@@ -68,5 +70,8 @@ public class Constants {
 	public static final String SI = "Sí";
 	public static final String NO = "No";
 	public static final String NA = "-";
+	
+	public static final String VPN_CORRECT = "Correcto";
+	public static final String VPN_INCORRECT = "Incorrecto";
 	
 }

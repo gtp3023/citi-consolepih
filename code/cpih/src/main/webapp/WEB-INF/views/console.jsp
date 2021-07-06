@@ -12,6 +12,37 @@
             <button id="btnSearch" type="button" class="button btn_primary">Buscar</button>
         </form>
     </div>
+    
+    <div id="modalMessage" class="modal fade" aria-labelledby="modalMessageTitle">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content info">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                   	<span aria-hidden="true">&times;</span>
+	                </button>
+	                
+	                <div class="modal_title">
+	                    <h3><span id="modalMessageTitle"></span></h3>
+	                </div>
+					
+	                <div class="eliminarTitle">
+	                    <label id="modalMessageText"></label>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+		            <button data-dismiss="modal" type="button" class="btn btn_primary"><spring:message code="cpih.general.button.accept"/></button>
+	            </div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<div class="overlay">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
 </div>
 
 <div id="divDetail" class="content" style="display: none; padding: 70px 15px 0";/>
@@ -47,8 +78,28 @@
 		$('.overlay').show();
 		
 		var parametros = { msisdn : msisdn };
-    	genericAjax(null, 'console/search', parametros, self.loadDetail, 'html');
+   			
+   		$.post('console/validateUser', parametros, validateUserResponse, 'json');
     };
+    
+    function validateUserResponse(data) {
+    	switch(data.retVal) {
+		  case 0:
+			  	var parametros = { msisdn : $('#msisdn').val() };
+		    	genericAjax(null, 'console/search', parametros, loadDetail, 'html');
+		    break;
+		  case 1:
+			  	$('.overlay').hide();
+			  	$('#modalMessage').modal('show');
+	    		$('#modalMessageText').text('La l\u00EDnea no es Telcel, intenta b\u00FAscando otra l\u00EDnea.');
+		    break;
+		  case 2:
+			  	$('.overlay').hide();
+			  	$('#modalMessage').modal('show');
+	    		$('#modalMessageText').text('La l\u00EDnea no es Internet en tu casa, intenta b\u00FAscando otra l\u00EDnea.');
+			break;
+		}
+    }
     
     function loadDetail(data) {
     	$('#divSearch').hide();

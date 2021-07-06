@@ -14,6 +14,14 @@
 	<div id="gridData">
 	  	<c:import url="userList.jsp" />
 	</div>
+	
+</div>
+
+<div class="overlay">
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
 </div>
 
 <div id="modal" class="modal fade" aria-labelledby="myModalLabel">
