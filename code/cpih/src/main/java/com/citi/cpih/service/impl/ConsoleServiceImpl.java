@@ -12,6 +12,7 @@ import com.citi.cpih.model.UserPih;
 import com.citi.cpih.service.ConsoleService;
 import com.citi.cpih.service.GwtService;
 import com.citi.cpih.service.SprService;
+import com.citi.cpih.service.TangoService;
 import com.citi.cpih.service.UserService;
 import com.citi.cpih.util.Constants;
 import com.citi.cpih.util.DateUtil;
@@ -32,6 +33,9 @@ public class ConsoleServiceImpl implements ConsoleService {
 	
 	@Autowired 
     private UserService userService;
+	
+	@Autowired 
+    private TangoService tangoService;
 	
 	@Override
     public UserDTO getUserSpr(String msisdn) {
@@ -63,8 +67,15 @@ public class ConsoleServiceImpl implements ConsoleService {
 		
 		userDTO.setHasMh3(responseV4.getHasMh3());
 		userDTO.setHasGeolk(responseCloud.getHasGeolk());
-		userDTO.setHasOfferId(responseV4.getHasOfferId());
 		userDTO.setLastChangeDate(responseV4.getLastChangeGeolk());
+		
+		if(userDTO.getHasMh3().equals(Constants.SI)) {
+			logger.info("{} Validate getSubscriptionInfo", msisdn);
+			ResponseDTO responseSubscriptionInfo = this.tangoService.getSubscriptionInfo(msisdn);
+			userDTO.setHasOfferId(responseSubscriptionInfo.getHasOfferId());
+		} else {
+			userDTO.setHasOfferId(Constants.NO);
+		}
 		
         return userDTO;
     }

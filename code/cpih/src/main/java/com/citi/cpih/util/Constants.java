@@ -5,6 +5,10 @@ package com.citi.cpih.util;
  */
 public class Constants {
 	
+	private Constants() {
+		
+	}
+	
 	public static final String USER_SESSION = "userSession";
 	public static final String SESSION_ID = "sessionId";
 	
@@ -58,6 +62,7 @@ public class Constants {
 	
 	public static final String GWT_METHOD_GET_INTERNET_BALANCE_V4 = "GWT|executeOperation|getInternetBalanceV4";
 	public static final String GWT_METHOD_GET_CLOUD_INFO = "GWT|invoke|getCloudInfo";
+	public static final String TANGO_GET_SUBSCRIPTION_INFO = "Tango|getSubscriptionInfo";
 	
 	public static final String ERROR_WS_PAC = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><Mensaje><NumEmp>null</NumEmp><UsrUniversal>null</UsrUniversal><Nombre>null</Nombre><Appat>null</Appat><Apmat>null</Apmat><Region>0</Region><IdPerfil>null</IdPerfil><NombrePerfil>null</NombrePerfil><FvPrepagoPadre>null</FvPrepagoPadre><FvPospagoPadre>null</FvPospagoPadre><FvPrepagoPersonal>null</FvPrepagoPersonal><FvpospagoPersonal>null</FvpospagoPersonal><FvPrepagoReporte>null</FvPrepagoReporte><FvPospagoReporte>null</FvPospagoReporte><Escenario>null</Escenario><Direccion>null</Direccion><Subdireccion>null</Subdireccion><Gerencia>null</Gerencia><Departamento>null</Departamento><DescDepartamento>null</DescDepartamento><Puesto>0</Puesto><Correo>null</Correo><ProblemaId>-1</ProblemaId><ProblemaDesc>TOKEN INVALIDO, PASSWORD INCORRECTO</ProblemaDesc></Mensaje>";
 	public static final String SUCCES_WS_PAC = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><Mensaje><NumEmp>54956</NumEmp><UsrUniversal>VVAD6AC</UsrUniversal><Nombre>IVAN EDUARDO</Nombre><Appat>ORTIZ</Appat><Apmat>SANCHEZ</Apmat><Region>0</Region><IdPerfil>ANCGIAIC</IdPerfil><NombrePerfil>ADMINISTRADOR DE SVA INGT IOT MASIVO(ANCGIAIC)</NombrePerfil><FvPrepagoPadre>1000</FvPrepagoPadre><FvPospagoPadre>DUMMY</FvPospagoPadre><FvPrepagoPersonal>null</FvPrepagoPersonal><FvpospagoPersonal>null</FvpospagoPersonal><FvPrepagoReporte>null</FvPrepagoReporte><FvPospagoReporte>null</FvPospagoReporte><Escenario>null</Escenario><Direccion>00500000</Direccion><Subdireccion>00550000</Subdireccion><Gerencia>00550100</Gerencia><Departamento>00550108</Departamento><DescDepartamento>null</DescDepartamento><Puesto>128279</Puesto><Correo>null</Correo><ProblemaId>0</ProblemaId><ProblemaDesc>OPERACION EXITOSA</ProblemaDesc></Mensaje>";

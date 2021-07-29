@@ -1,6 +1,5 @@
 package com.citi.cpih.service.impl;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +39,6 @@ public class GwtServiceImpl implements GwtService {
 	@Override
     public ResponseDTO getInternetBalanceV4(UserDTO userDTO) {
 		ResponseDTO response = new ResponseDTO();
-        Date creationDate = new Date();
 
         String serviceName = "getInternetBalanceV4";
         String serviceVersion = "1.0";
@@ -67,7 +65,6 @@ public class GwtServiceImpl implements GwtService {
             CaptiveCore port = this.captiveCore;
             OperationResponseType operationResponseType = port.executeOperation(request);
             
-            response.setHasOfferId(Constants.NO);
             response.setHasMh3(Constants.NO);
             response.setLastChangeGeolk(Constants.NA);
 
@@ -81,7 +78,6 @@ public class GwtServiceImpl implements GwtService {
                     while(i.hasNext()) {
                         ValuesType v = i.next();
                         
-                        this.validateNatural(v, response);
                         this.validateOtros(v, response);
                         this.validateHistorico(v, response);
                     }
@@ -100,22 +96,9 @@ public class GwtServiceImpl implements GwtService {
 			response.setDescription("Error GWTSVA executeOperation " + serviceName);
         }
         
-        this.legacyTransLog.logGetInternetBalanceV4(userDTO, creationDate, response);
+        this.legacyTransLog.logGetInternetBalanceV4(userDTO, response);
         return response;
     }
-	
-	private void validateNatural(ValuesType v, ResponseDTO response) {
-		if (v.getName().contains("Natural") && null != v.getMapValues() ) {
-			List<MapValueType> map = v.getMapValues();
-			
-			for (MapValueType mapValueType : map) {
-				if(mapValueType.getAttribute().equals("Product") && mapValueType.getValue().toUpperCase().contains("CASA")) {
-					response.setHasOfferId(Constants.SI);
-					break;
-				}
-			}
-		}
-	}
 	
 	private void validateOtros(ValuesType v, ResponseDTO response) {
 		if (v.getName().contains("Otros") && null != v.getMapValues() ) {
@@ -151,7 +134,6 @@ public class GwtServiceImpl implements GwtService {
 	@Override
     public ResponseDTO getCloudInfo(UserDTO userDTO) {
 		ResponseDTO response = new ResponseDTO();
-        Date creationDate = new Date();
         
         try {
         	SoapMapType request = new SoapMapType();
@@ -201,14 +183,14 @@ public class GwtServiceImpl implements GwtService {
 	            	this.validateProductsCloud(v, response);
 	            }
 				
-				this.logger.info("{} - Response GWT buyCloudProduct [ Codigo: {}, Mensaje: {} ]", userDTO.getMsisdn(), 
+				this.logger.info("{} - Response GWT getCloudInfo [ Codigo: {}, Mensaje: {} ]", userDTO.getMsisdn(), 
 						response.getCode(), response.getDescription());
 			} else {
 				response = new ResponseDTO();
 				response.setCode(Constants.CODE_WS_EXCEPTION);
 				response.setDescription("Error GWTSVA invoke getCloudInfo");
 				
-				this.logger.info("{} - Response GWT buyCloudProduct => [ Codigo: {}, Mensaje: {} ]", userDTO.getMsisdn(), 
+				this.logger.info("{} - Response GWT getCloudInfo => [ Codigo: {}, Mensaje: {} ]", userDTO.getMsisdn(), 
 						response.getCode(), response.getDescription());
 			}
             
@@ -220,7 +202,7 @@ public class GwtServiceImpl implements GwtService {
 			response.setDescription("Error GWTSVA invoke getCloudInfo");
         }
         
-        this.legacyTransLog.logGetCloudInfo(userDTO, creationDate, response);
+        this.legacyTransLog.logGetCloudInfo(userDTO, response);
         return response;
     }
 	

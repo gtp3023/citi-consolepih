@@ -1,7 +1,5 @@
 package com.citi.cpih.util.log;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.citi.cpih.dto.ResponseDTO;
 import com.citi.cpih.dto.UserDTO;
 import com.citi.cpih.util.Constants;
-import com.citi.cpih.util.Util;
+import com.citi.cpih.util.DateUtil;
 
 /**
  * @author jorge.ruiz citi.com.mx
@@ -21,34 +19,35 @@ public class LegacyTransLog {
 	
 	private final Logger logger = LogManager.getLogger(this.getClass().getName());
 	
-	private DateFormat dateFormatterFull = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	
-	public void logGetInternetBalanceV4(UserDTO userDTO, Date creationDate, ResponseDTO response) {
-		String date = this.formatDateFull(creationDate);
-		this.logger.info("{} - {}|{}|{}|{}|{}",
+	public void logGetInternetBalanceV4(UserDTO userDTO, ResponseDTO response) {
+		String creationDate = DateUtil.formatDateLog(new Date());
+		this.logger.info("{} - {}|{}|{}|{}",
 				Constants.GWT_METHOD_GET_INTERNET_BALANCE_V4,
-				date,
 				userDTO.getMsisdn(),
-				Util.getSubscriberType(userDTO.getSubscription()),
+				creationDate,
 				response.getCode(),
 				response.getDescription());
 	}
 	
-	public void logGetCloudInfo(UserDTO userDTO, Date creationDate, ResponseDTO response) {
-		String date = this.formatDateFull(creationDate);
-		this.logger.info("{} - {}|{}|{}|{}|{}",
+	public void logGetCloudInfo(UserDTO userDTO, ResponseDTO response) {
+		String creationDate = DateUtil.formatDateLog(new Date());
+		this.logger.info("{} - {}|{}|{}|{}",
 				Constants.GWT_METHOD_GET_CLOUD_INFO,
-				date,
 				userDTO.getMsisdn(),
-				Util.getSubscriberType(userDTO.getSubscription()),
+				creationDate,
 				response.getCode(),
 				response.getDescription());
 	}
 	
-	private String formatDateFull(Date creationDate) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(this.dateFormatterFull.format(creationDate)).append("|").append(this.dateFormatterFull.format(new Date()));
-		return sb.toString();
+	public void getSubscriptionInfo(String msisdn, ResponseDTO responseDTO, String productId) {
+		String creationDate = DateUtil.formatDateLog(new Date());
+		this.logger.info("{} - {}|{}|{}|{}|{}",
+				Constants.TANGO_GET_SUBSCRIPTION_INFO,
+				msisdn,
+				creationDate,
+				productId,
+				responseDTO.getCode(),
+				responseDTO.getDescription());
 	}
 	
 }

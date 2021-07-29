@@ -9,13 +9,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import com.citi.cpih.ws.HttpClientPoolManager;
+import com.citi.cpih.ws.HttpClientPoolManagerImpl;
+
 /**
  * @author jorge.ruiz citi.com.mx
  */
 @PropertySource({
 	"file:${cpih.server.path.conf}/application.properties",
 	"file:${cpih.server.path.conf}/gwt.properties",
-	"file:${cpih.server.path.conf}/spr.properties"
+	"file:${cpih.server.path.conf}/spr.properties",
+	"file:${cpih.server.path.conf}/tango.properties"
 })
 @SpringBootApplication
 public class ServerApplication extends SpringBootServletInitializer {
@@ -34,6 +38,11 @@ public class ServerApplication extends SpringBootServletInitializer {
         LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
         validatorFactoryBean.setValidationMessageSource(messageSource);
         return validatorFactoryBean;
+    }
+    
+    @Bean
+    public HttpClientPoolManager httpClientPoolManager() {
+    	return new HttpClientPoolManagerImpl();
     }
     
 }
