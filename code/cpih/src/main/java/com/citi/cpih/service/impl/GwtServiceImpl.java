@@ -103,31 +103,49 @@ public class GwtServiceImpl implements GwtService {
 	private void validateOtros(ValuesType v, ResponseDTO response) {
 		if (v.getName().contains("Otros") && null != v.getMapValues() ) {
 			List<MapValueType> map = v.getMapValues();
+			boolean isChangeLocationProduct = Boolean.FALSE;
 			
 			for (MapValueType mapValueType : map) {
-				if(mapValueType.getAttribute().equals("productId") && mapValueType.getValue().equalsIgnoreCase("MH3")) {
-					response.setHasMh3(Constants.SI);
-					break;
-				}
+				this.validateMh3(mapValueType, response);
+				isChangeLocationProduct = this.validateChangeLocationProduct(mapValueType, isChangeLocationProduct);
+				this.validateChangeLocationDate(mapValueType, response, isChangeLocationProduct);
 			}
 		}
 	}
 	
 	private void validateHistorico(ValuesType v, ResponseDTO response) {
-		if (v.getName().contains("Historico") && null != v.getMapValues() ) {
+		if (response.getLastChangeGeolk().equals(Constants.NA) && v.getName().contains("Historico") && null != v.getMapValues() ) {
 			List<MapValueType> map = v.getMapValues();
-			boolean isMhf = Boolean.FALSE;
+			boolean isChangeLocationProduct = Boolean.FALSE;
 			
 			for (MapValueType mapValueType : map) {
-				if(mapValueType.getAttribute().equals("productId") && mapValueType.getValue().equalsIgnoreCase("MHF")) {
-					isMhf = Boolean.TRUE;
-				} else if(isMhf && mapValueType.getAttribute().equals("ProductActivationDate") && mapValueType.getValue() != null && !mapValueType.getValue().trim().isEmpty()) {
-					String activationDate = mapValueType.getValue().trim().substring(0, 10);
-					activationDate = activationDate.replace("-", "/");
-					response.setLastChangeGeolk(activationDate);
-					break;
-				}
+				isChangeLocationProduct = this.validateChangeLocationProduct(mapValueType, isChangeLocationProduct);
+				this.validateChangeLocationDate(mapValueType, response, isChangeLocationProduct);
 			}
+		}
+	}
+	
+	private void validateMh3(MapValueType mapValueType, ResponseDTO response) {
+		if(mapValueType.getAttribute().equals("productId") && mapValueType.getValue().equalsIgnoreCase("MH3")) {
+			response.setHasMh3(Constants.SI);
+		}
+	}
+	
+	private boolean validateChangeLocationProduct(MapValueType mapValueType, boolean isChangeLocationProduct) {
+		boolean isProductChange = isChangeLocationProduct;
+		
+		if(mapValueType.getAttribute().equals("productId") && (mapValueType.getValue().equalsIgnoreCase("MHF") || mapValueType.getValue().equalsIgnoreCase("MXO00")) ) {
+			isProductChange = Boolean.TRUE;
+		}
+		
+		return isProductChange;
+	}
+	
+	private void validateChangeLocationDate(MapValueType mapValueType, ResponseDTO response, boolean isChangeLocationProduct) {
+		if(isChangeLocationProduct && mapValueType.getAttribute().equals("ProductActivationDate") && mapValueType.getValue() != null && !mapValueType.getValue().trim().isEmpty()) {
+			String activationDate = mapValueType.getValue().trim().substring(0, 10);
+			activationDate = activationDate.replace("-", "/");
+			response.setLastChangeGeolk(activationDate);
 		}
 	}
 	
