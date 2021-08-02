@@ -1,5 +1,6 @@
 package com.citi.cpih.service.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.citi.cpih.dto.ResponseDTO;
 import com.citi.cpih.dto.UserDTO;
 import com.citi.cpih.service.GwtService;
 import com.citi.cpih.util.Constants;
+import com.citi.cpih.util.DateUtil;
 import com.citi.cpih.util.log.LegacyTransLog;
 
 import mx.com.citi.captivecore.CaptiveCore;
@@ -74,14 +76,16 @@ public class GwtServiceImpl implements GwtService {
             	
                 if (operationResponseType.getResponseCode() == 0) {
                     Iterator<ValuesType> i = operationResponseType.getValues().iterator();
+                    List<String> listChangeLocationDate = new ArrayList<>();
 
                     while(i.hasNext()) {
                         ValuesType v = i.next();
                         
-                        this.validateOtros(v, response);
-                        this.validateHistorico(v, response);
+                        this.validateOtros(v, response, listChangeLocationDate);
+                        this.validateHistorico(v, response, listChangeLocationDate);
                     }
                     
+                    this.validateLastChangeLocationDate(response, listChangeLocationDate);
                 }
             } else {
             	response.setCode(Constants.CODE_WS_EXCEPTION);
@@ -100,7 +104,7 @@ public class GwtServiceImpl implements GwtService {
         return response;
     }
 	
-	private void validateOtros(ValuesType v, ResponseDTO response) {
+	private void validateOtros(ValuesType v, ResponseDTO response, List<String> listChangeLocationDate) {
 		if (v.getName().contains("Otros") && null != v.getMapValues() ) {
 			List<MapValueType> map = v.getMapValues();
 			boolean isChangeLocationProduct = Boolean.FALSE;
@@ -108,19 +112,19 @@ public class GwtServiceImpl implements GwtService {
 			for (MapValueType mapValueType : map) {
 				this.validateMh3(mapValueType, response);
 				isChangeLocationProduct = this.validateChangeLocationProduct(mapValueType, isChangeLocationProduct);
-				this.validateChangeLocationDate(mapValueType, response, isChangeLocationProduct);
+				isChangeLocationProduct = this.validateChangeLocationDate(mapValueType, isChangeLocationProduct, listChangeLocationDate);
 			}
 		}
 	}
 	
-	private void validateHistorico(ValuesType v, ResponseDTO response) {
-		if (response.getLastChangeGeolk().equals(Constants.NA) && v.getName().contains("Historico") && null != v.getMapValues() ) {
+	private void validateHistorico(ValuesType v, ResponseDTO response, List<String> listChangeLocationDate) {
+		if (v.getName().contains("Historico") && null != v.getMapValues() ) {
 			List<MapValueType> map = v.getMapValues();
 			boolean isChangeLocationProduct = Boolean.FALSE;
 			
 			for (MapValueType mapValueType : map) {
 				isChangeLocationProduct = this.validateChangeLocationProduct(mapValueType, isChangeLocationProduct);
-				this.validateChangeLocationDate(mapValueType, response, isChangeLocationProduct);
+				isChangeLocationProduct = this.validateChangeLocationDate(mapValueType, isChangeLocationProduct, listChangeLocationDate);
 			}
 		}
 	}
@@ -141,11 +145,34 @@ public class GwtServiceImpl implements GwtService {
 		return isProductChange;
 	}
 	
-	private void validateChangeLocationDate(MapValueType mapValueType, ResponseDTO response, boolean isChangeLocationProduct) {
+	private boolean validateChangeLocationDate(MapValueType mapValueType, boolean isChangeLocationProduct, List<String> listChangeLocationDate) {
+		boolean retVal = isChangeLocationProduct;
+		
 		if(isChangeLocationProduct && mapValueType.getAttribute().equals("ProductActivationDate") && mapValueType.getValue() != null && !mapValueType.getValue().trim().isEmpty()) {
 			String activationDate = mapValueType.getValue().trim().substring(0, 10);
 			activationDate = activationDate.replace("-", "/");
-			response.setLastChangeGeolk(activationDate);
+			listChangeLocationDate.add(activationDate);
+			retVal = Boolean.FALSE;
+		}
+		
+		return retVal;
+	}
+	
+	private void validateLastChangeLocationDate(ResponseDTO response, List<String> listChangeLocationDate) {
+		if(!listChangeLocationDate.isEmpty()) {
+			String date = null;
+			
+			for (String changeLocationDate : listChangeLocationDate) {
+				if(date == null) {
+					date = changeLocationDate;
+				}
+				
+				if(DateUtil.formatDate(changeLocationDate).after(DateUtil.formatDate(date))) {
+					date = changeLocationDate;
+				}
+			}
+			
+			response.setLastChangeGeolk(date);
 		}
 	}
 	

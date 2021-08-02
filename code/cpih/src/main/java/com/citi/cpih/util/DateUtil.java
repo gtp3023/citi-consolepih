@@ -24,6 +24,15 @@ private DateUtil() {
 		}
 	}
 	
+	public static Date formatDate(String date) {
+		try {
+			DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+			return dateFormatter.parse(date);
+		} catch (ParseException exeption) {
+			return null;
+		}
+	}
+	
 	public static String formatDateFull(Date date) {
 		try {
 			DateFormat dateFormatterFull = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
