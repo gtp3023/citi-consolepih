@@ -48,7 +48,7 @@ public class ConsoleServiceImpl implements ConsoleService {
 		if(userSprDTO != null) {
 			userDTO = new UserDTO(msisdn);
 			userDTO.setSubscription(userSprDTO.getSubscription());
-			userDTO.setHasVpn(userSprDTO.getVpnNodeId() == 5 ? Constants.VPN_CORRECT : Constants.VPN_INCORRECT);
+			userDTO.setHasVpn(userSprDTO.getVpnNodeId() != null && userSprDTO.getVpnNodeId() == 5 ? Constants.VPN_CORRECT : Constants.VPN_INCORRECT);
 		}
 		
 		return userDTO;
