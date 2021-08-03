@@ -42,27 +42,6 @@ private DateUtil() {
 		}
 	}
 	
-	public static Date formatDateFull(Date date, String formatComplement) {
-		try {
-			DateFormat dateFormatterFull = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			String newDate = formatDate(date);
-			newDate = newDate + formatComplement;
-			return dateFormatterFull.parse(newDate);
-		} catch (ParseException exeption) {
-			return null;
-		}
-	}
-	
-	public static Date formatDateFull(String date, String formatComplement) {
-		try {
-			DateFormat dateFormatterFull = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			date = date + formatComplement;
-			return dateFormatterFull.parse(date);
-		} catch (ParseException exeption) {
-			return null;
-		}
-	}
-	
 	public static String formatDateLog(Date creationDate) {
 		DateFormat dateFormatterFull = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		StringBuilder sb = new StringBuilder();

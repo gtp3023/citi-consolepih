@@ -5,12 +5,12 @@
 <div id="divSearch" class="content">
     <div class="index_header text-center">
         <h2>Hola <sec:authentication property="principal.fullName"/></h2>
-        <form>
+        <div class="search">
             <p>Para realizar una búsqueda<br /> ingresa el número de línea deseado.</p>
             <input id="msisdn" type="text" class="form_input" placeholder="Número 10 dígitos" />
             <h2 class="msg-error" id="errorSearch"></h2>
             <button id="btnSearch" type="button" class="button btn_primary">Buscar</button>
-        </form>
+        </div>
     </div>
     
     <div id="modalMessage" class="modal fade" aria-labelledby="modalMessageTitle">
@@ -60,6 +60,16 @@
         });
 	});
   	
+	$('#msisdn').bind("enterKey",function(e){
+		search();
+	});
+	
+	$('#msisdn').keyup(function(e){
+		if(e.keyCode == 13) {
+			search();
+		}
+	});
+	
 	function search() {
 		$('#errorSearch').text('');
 		

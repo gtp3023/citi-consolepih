@@ -71,14 +71,16 @@ public class ConsoleController {
 		ModelAndView modelAndView = new ModelAndView("consoleDetail");
 		logger.info("");
 		
-		UserDTO userDetail = this.consoleService.search(msisdn);
+		UserDTO userSession = null != session.getAttribute(Constants.USER_SESSION) ? (UserDTO) session.getAttribute(Constants.USER_SESSION) : null;
 		
-		if(null != session.getAttribute(Constants.USER_SESSION)) {
+		UserDTO userDetail = this.consoleService.search(msisdn, userSession);
+		
+		/*if(null != session.getAttribute(Constants.USER_SESSION)) {
 			UserDTO userSession = (UserDTO) session.getAttribute(Constants.USER_SESSION);
 			userDetail.setSubscriptionType(userSession.getSubscriptionType());
 			userDetail.setSubscription(userSession.getSubscription());
 			userDetail.setHasVpn(userSession.getHasVpn());
-		}
+		}*/
 		
 		session.removeAttribute(Constants.USER_SESSION);
 		session.setAttribute(Constants.USER_SESSION, userDetail);

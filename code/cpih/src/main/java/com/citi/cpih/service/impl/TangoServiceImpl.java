@@ -109,7 +109,7 @@ public class TangoServiceImpl implements TangoService {
 			this.logger.info("{} - getSubscriptionInfo url :: {}", msisdn, url);
 			this.logger.info("{} - getSubscriptionInfo response :: {}", msisdn, responseXml);
 			
-			boolean hasOfferId = this.validateResponseSubscriptionInfo(response, responseXml, msisdn);
+			boolean hasOfferId = this.validateResponseSubscriptionInfo(responseXml, msisdn);
 			
 			if(hasOfferId) {
 				response.setCode(Constants.CODE_SUCCESS);
@@ -133,7 +133,7 @@ public class TangoServiceImpl implements TangoService {
 		return response;
     }
 	
-	private boolean validateResponseSubscriptionInfo(ResponseDTO response, String responseXml, String msisdn) {
+	private boolean validateResponseSubscriptionInfo(String responseXml, String msisdn) {
 		boolean hasOfferId = Boolean.FALSE;
 		Document docXml = this.convertStringToDocument(msisdn, responseXml);
 		

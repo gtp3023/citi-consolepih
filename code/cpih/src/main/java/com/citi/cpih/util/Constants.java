@@ -75,6 +75,7 @@ public class Constants {
 	public static final String SI = "Sí";
 	public static final String NO = "No";
 	public static final String NA = "-";
+	public static final String NO_APLICA = "No Aplica";
 	
 	public static final String VPN_CORRECT = "Correcto";
 	public static final String VPN_INCORRECT = "Incorrecto";

@@ -9,6 +9,6 @@ public interface ConsoleService {
 	
 	UserDTO getUserSpr(String msisdn);
 	
-	UserDTO search(String msisdn);
+	UserDTO search(String msisdn, UserDTO userSession);
     
 }

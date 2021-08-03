@@ -82,7 +82,7 @@ public class GwtServiceImpl implements GwtService {
                         ValuesType v = i.next();
                         
                         this.validateOtros(v, response, listChangeLocationDate);
-                        this.validateHistorico(v, response, listChangeLocationDate);
+                        this.validateHistorico(v, listChangeLocationDate);
                     }
                     
                     this.validateLastChangeLocationDate(response, listChangeLocationDate);
@@ -117,7 +117,7 @@ public class GwtServiceImpl implements GwtService {
 		}
 	}
 	
-	private void validateHistorico(ValuesType v, ResponseDTO response, List<String> listChangeLocationDate) {
+	private void validateHistorico(ValuesType v, List<String> listChangeLocationDate) {
 		if (v.getName().contains("Historico") && null != v.getMapValues() ) {
 			List<MapValueType> map = v.getMapValues();
 			boolean isChangeLocationProduct = Boolean.FALSE;

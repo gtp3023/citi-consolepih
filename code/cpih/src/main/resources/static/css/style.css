@@ -375,6 +375,32 @@ input[type="color"]:disabled,
   font-size: 14px;
 }
 
+.search {
+  margin: auto;
+  padding: 20px;
+  max-width: 600px;
+  text-align: center;
+  background-color: var(--bg_light);
+}
+.search p {
+  margin: 20px 0;
+  font-size: 16px;
+}
+.search .form_input {
+  margin: 20px 0;
+  height: 40px;
+  max-width: 300px;
+  margin: 10px auto;
+  font-size: 16px;
+  text-align: center;
+}
+.search button {
+  margin: 30px 0 20px;
+  height: 40px;
+  width: 200px;
+  font-size: 14px;
+}
+
 
 /* ------- CONTAINER: ADMIN TITLE; -------- */
 .title_header { margin-top: 10px; margin-bottom: 30px; }

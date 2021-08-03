@@ -1,33 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <a id="btnBack" class="back_link"><em class="material-icons">keyboard_backspace</em>Buscar otro usuario</a>
 <h3 class="result_title">Información de la línea <span>${userSession.msisdn}</span></h3>
 
 <div class="row result_content">
-	<c:if test="${userSession.fullName != null && userSession.fullName != ''}">
-	    <div class="col-12 col-md-4 col-lg-3 side_info">
-	        <div class="result_box">
-	            <h4>Datos del usuario</h4>
 	
-	            <form>
-	                <div class="form_result">
-	                    <label class="result_lbl">Nombre</label>
-	                    <input type="text" class="result_input" value="${userSession.fullName}" disabled />
-	                </div>
-	                <div class="form_result">
-	                    <label class="result_lbl">Correo</label>
-	                    <input type="text" class="result_input" value="${userSession.email}" disabled />
-	                </div>
-	                <c:if test="${userSession.msisdnTwo != null && userSession.msisdnTwo != ''}">
+	<c:if test="${userSession.fullName != null && userSession.fullName != ''}">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		    <div class="col-12 col-md-4 col-lg-3 side_info">
+		        <div class="result_box">
+		            <h4>Datos del usuario</h4>
+		
+		            <div id="search">
 		                <div class="form_result">
-		                    <label class="result_lbl">Número secundario</label>
-		                    <input type="text" class="result_input" value="${userSession.msisdnTwo}" disabled />
+		                    <label class="result_lbl">Nombre</label>
+		                    <input type="text" class="result_input" value="${userSession.fullName}" disabled />
 		                </div>
-		           	</c:if>
-	            </form>
-	        </div>
-	    </div>
+		                <div class="form_result">
+		                    <label class="result_lbl">Correo</label>
+		                    <input type="text" class="result_input" value="${userSession.email}" disabled />
+		                </div>
+		                <c:if test="${userSession.msisdnTwo != null && userSession.msisdnTwo != ''}">
+			                <div class="form_result">
+			                    <label class="result_lbl">Número secundario</label>
+			                    <input type="text" class="result_input" value="${userSession.msisdnTwo}" disabled />
+			                </div>
+			           	</c:if>
+		            </div>
+		        </div>
+		    </div>
+		</sec:authorize>
 	</c:if>
+	
     <div class="col-12 col-md-8 col-lg-9">
         <div class="result_box">
         	<c:if test="${userSession.subscription != null && userSession.subscription != ''}">

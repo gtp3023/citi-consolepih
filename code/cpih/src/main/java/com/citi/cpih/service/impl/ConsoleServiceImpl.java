@@ -55,9 +55,9 @@ public class ConsoleServiceImpl implements ConsoleService {
 	}
 	
 	@Override
-    public UserDTO search(String msisdn) {
+    public UserDTO search(String msisdn, UserDTO userSession) {
 		logger.info("{} Search information", msisdn);
-		UserDTO userDTO = this.getUser(msisdn);
+		UserDTO userDTO = this.getUser(msisdn, userSession);
 		
 		logger.info("{} Validate getInternetBalance", msisdn);
 		ResponseDTO responseV4 = this.gwtService.getInternetBalanceV4(userDTO);
@@ -65,28 +65,29 @@ public class ConsoleServiceImpl implements ConsoleService {
 		logger.info("{} Validate getCloudInfo", msisdn);
 		ResponseDTO responseCloud = this.gwtService.getCloudInfo(userDTO);
 		
-		userDTO.setHasMh3(responseV4.getHasMh3());
 		userDTO.setHasGeolk(responseCloud.getHasGeolk());
 		userDTO.setLastChangeDate(responseV4.getLastChangeGeolk());
 		
-		if(userDTO.getHasMh3().equals(Constants.SI)) {
+		if(userDTO.getSubscription().equals(Constants.POSPAGO_BES)) {
+			userDTO.setHasOfferId(Constants.NO_APLICA);
+			userDTO.setHasMh3(Constants.NO_APLICA);
+		} else {
+			userDTO.setHasMh3(responseV4.getHasMh3());
+			
 			logger.info("{} Validate getSubscriptionInfo", msisdn);
 			ResponseDTO responseSubscriptionInfo = this.tangoService.getSubscriptionInfo(msisdn);
 			userDTO.setHasOfferId(responseSubscriptionInfo.getHasOfferId());
-		} else {
-			userDTO.setHasOfferId(Constants.NO);
 		}
 		
         return userDTO;
     }
 	
-	private UserDTO getUser(String msisdn) {
+	private UserDTO getUser(String msisdn, UserDTO userSession) {
 		msisdn = Constants.LADA + msisdn;
 		
 		logger.info("{} Load user from database", msisdn);
 		UserPih userPih = this.userService.getUserPih(msisdn);
 		UserDTO userDTO = new UserDTO(msisdn);
-		
 		
 		if(userPih != null) {
 			userDTO.setFullName(userPih.getFullName());
@@ -99,6 +100,12 @@ public class ConsoleServiceImpl implements ConsoleService {
 			userDTO.setHasRegister(Constants.NO);
 			userDTO.setLastChangeDate(Constants.NA);
 			userDTO.setCreationDate(Constants.NA);
+		}
+		
+		if(userSession != null) {
+			userDTO.setSubscriptionType(userSession.getSubscriptionType());
+			userDTO.setSubscription(userSession.getSubscription());
+			userDTO.setHasVpn(userSession.getHasVpn());
 		}
 		
 		return userDTO;
