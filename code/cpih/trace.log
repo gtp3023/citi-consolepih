@@ -1,0 +1,15 @@
+17 jun 2021 12:10:21,863-INFO  [] GwtServiceTest - Starting GwtServiceTest on DESKTOP-JRUIZG with PID 13812 (started by jruizg in D:\Proyectos\CITI\SVA\PortalPihConsole\feature32458\consolepih\code\cpih)
+17 jun 2021 12:10:21,868-INFO  [] GwtServiceTest - No active profile set, falling back to default profiles: default
+17 jun 2021 12:10:22,761-INFO  [] GwtServiceTest - Starting GwtServiceTest on DESKTOP-JRUIZG with PID 13812 (started by jruizg in D:\Proyectos\CITI\SVA\PortalPihConsole\feature32458\consolepih\code\cpih)
+17 jun 2021 12:10:22,761-INFO  [] GwtServiceTest - No active profile set, falling back to default profiles: default
+17 jun 2021 12:12:30,561-INFO  [] GwtServiceTest - Starting GwtServiceTest on DESKTOP-JRUIZG with PID 7040 (started by jruizg in D:\Proyectos\CITI\SVA\PortalPihConsole\feature32458\consolepih\code\cpih)
+17 jun 2021 12:12:30,567-INFO  [] GwtServiceTest - No active profile set, falling back to default profiles: default
+17 jun 2021 12:12:31,488-INFO  [] GwtServiceTest - Starting GwtServiceTest on DESKTOP-JRUIZG with PID 7040 (started by jruizg in D:\Proyectos\CITI\SVA\PortalPihConsole\feature32458\consolepih\code\cpih)
+17 jun 2021 12:12:31,488-INFO  [] GwtServiceTest - No active profile set, falling back to default profiles: default
+17 jun 2021 12:19:22,729-INFO  [] GwtServiceTest - Starting GwtServiceTest on DESKTOP-JRUIZG with PID 10076 (started by jruizg in D:\Proyectos\CITI\SVA\PortalPihConsole\feature32458\consolepih\code\cpih)
+17 jun 2021 12:19:22,734-INFO  [] GwtServiceTest - No active profile set, falling back to default profiles: default
+17 jun 2021 12:19:23,559-INFO  [] GwtServiceTest - Started GwtServiceTest in 1.012 seconds (JVM running for 2.025)
+17 jun 2021 12:19:23,876-INFO  [] GwtServiceImpl - 525579035290 - Invoking GWT executeOperation serviceName getInternetBalanceV4
+17 jun 2021 12:19:24,380-INFO  [] LegacyTransLog - GWT|executeOperation|getInternetBalanceV4 - 2021/06/17 12:19:23|2021/06/17 12:19:24|525579035290|NA|0|Success
+17 jun 2021 12:19:24,383-INFO  [] GwtServiceImpl - 525579035290 - Invoking GWT executeOperation serviceName getInternetBalanceV4
+17 jun 2021 12:19:24,400-INFO  [] LegacyTransLog - GWT|executeOperation|getInternetBalanceV4 - 2021/06/17 12:19:24|2021/06/17 12:19:24|525579035290|NA|0|Success
