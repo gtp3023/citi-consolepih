@@ -361,7 +361,6 @@ input[type="color"]:disabled,
   font-size: 16px;
 }
 .index_header form .form_input {
-  margin: 20px 0;
   height: 40px;
   max-width: 300px;
   margin: 10px auto;
@@ -387,7 +386,6 @@ input[type="color"]:disabled,
   font-size: 16px;
 }
 .search .form_input {
-  margin: 20px 0;
   height: 40px;
   max-width: 300px;
   margin: 10px auto;
