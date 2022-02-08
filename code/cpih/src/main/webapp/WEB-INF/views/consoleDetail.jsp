@@ -7,7 +7,6 @@
 <div class="row result_content">
 	
 	<c:if test="${userSession.fullName != null && userSession.fullName != ''}">
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		    <div class="col-12 col-md-4 col-lg-3 side_info">
 		        <div class="result_box">
 		            <h4>Datos del usuario</h4>
@@ -30,7 +29,6 @@
 		            </div>
 		        </div>
 		    </div>
-		</sec:authorize>
 	</c:if>
 	
     <div class="col-12 col-md-8 col-lg-9">
